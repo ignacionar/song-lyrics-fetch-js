@@ -15,6 +15,7 @@ const searchSongs = async (value) => {
 };
 
 const showData = ({ data, next, prev }) => { 
+
     result.innerHTML = `
     <ul class="songs">
     ${data
@@ -29,6 +30,7 @@ const showData = ({ data, next, prev }) => {
 
 //      SI EXISTEN A O B
     if (prev || next) {
+        
         more.innerHTML = `
             ${prev 
                 ? `<button class="btn" onclick="getMoreSongs('${prev}')">Anterior</button>` 
@@ -47,9 +49,11 @@ const showData = ({ data, next, prev }) => {
 };
 
 const getMoreSongs = async (url) => {
+
     const res = await fetch(`https://cors-anywhere.herokuapp.com/${url}`);
     const data = await res.json();
     showData(data);
+
 };
 
 const getLyrics = async (artist, songTitle) => {
@@ -67,19 +71,28 @@ const getLyrics = async (artist, songTitle) => {
 // INIT
 function init() {
     form.addEventListener("submit", (event) => {
+
         event.preventDefault();
         const searchValue = search.value.trim();
+
         if (!searchValue) {
+
             return;
         } 
+
         searchSongs(searchValue);
+
     });
     result.addEventListener("click", (e) => {
+
         const element = e.target
+
         if (element.nodeName === "BUTTON") {
+
             const artist = element.dataset.artist;
             const songTitle = element.dataset.songtitle;
             getLyrics(artist, songTitle);
+
         }
     });
 }
