@@ -1,8 +1,24 @@
+const app = document.querySelector('#app');
+
+app.innerHTML = `
+<header>
+    <h1>Song Lyrics</h1>
+    <form action="" id="form">
+        <input type="text" name="" id="search" placeholder="Song or artist...">
+        <button>Search</button>
+    </form>
+</header>
+<div id="result" class="container">
+<p>Search results 🙂</p>
+</div>
+<div id="more" class="container centered">
+</div>
+`;
+
 const search = document.querySelector('#search');
 const more = document.querySelector('#more');
 const result = document.querySelector('#result');
 const form = document.querySelector('#form');
-
 
 const API_URL = 'https://api.lyrics.ovh'; 
 
@@ -12,6 +28,7 @@ const searchSongs = async (value) => {
     const data = await res.json();
     console.log(data);
     showData(data);
+
 };
 
 const showData = ({ data, next, prev }) => { 
@@ -30,7 +47,7 @@ const showData = ({ data, next, prev }) => {
 
 //      SI EXISTEN A O B
     if (prev || next) {
-        
+
         more.innerHTML = `
             ${prev 
                 ? `<button class="btn" onclick="getMoreSongs('${prev}')">Anterior</button>` 
